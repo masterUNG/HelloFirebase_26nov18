@@ -1,9 +1,15 @@
+#include <FirebaseArduino.h>
 #include <ESP8266WiFi.h>
+
 
 
 //Config Connected Router
 #define WiFi_SSID "MastreEWTC_2.4G"
 #define WiFi_Password "12345abcde"
+
+//Config Connected Firebase Database
+#define Firebase_Host "greenhouse-2ee0d.firebaseio.com"
+#define Firebase_Auth "YaSVvF9q3BWZsXV5djPX2KUwqhUEveA1VBHMKuXd"
 
 //Explicit
 int countInt = 0;
@@ -28,7 +34,8 @@ void setup() {
     Serial.print("Success Connected : ");
     Serial.println(WiFi.localIP());
 
-    
+//    Start Connected Firebase
+    Firebase.begin(Firebase_Host, Firebase_Auth);
 
  
 } // setup
@@ -40,6 +47,9 @@ void loop() {
 
     Serial.print("countInt ==> ");
     Serial.println(countInt);
+
+//    Post Valut To Firebase
+    Firebase.setInt("TestNumber", countInt);
 
     delay(1000);
 } // loop
