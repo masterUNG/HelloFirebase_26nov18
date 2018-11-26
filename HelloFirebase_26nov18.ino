@@ -5,6 +5,9 @@
 #define WiFi_SSID "MastreEWTC_2.4G"
 #define WiFi_Password "12345abcde"
 
+//Explicit
+int countInt = 0;
+
 
 
 void setup() {
@@ -27,11 +30,16 @@ void setup() {
 
     
 
-  
-
+ 
 } // setup
 
 void loop() {
-  // put your main code here, to run repeatedly:
 
-}
+//    Increase countInt
+    countInt++;
+
+    Serial.print("countInt ==> ");
+    Serial.println(countInt);
+
+    delay(1000);
+} // loop
