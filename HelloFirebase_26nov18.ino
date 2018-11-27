@@ -11,8 +11,12 @@
 #define Firebase_Host "greenhouse-2ee0d.firebaseio.com"
 #define Firebase_Auth "YaSVvF9q3BWZsXV5djPX2KUwqhUEveA1VBHMKuXd"
 
+//Config SwitchLED
+#define SwitchLED D1
+
 //Explicit
 int countInt = 0;
+int sinalFirebase = 0;
 
 
 
@@ -37,6 +41,9 @@ void setup() {
 //    Start Connected Firebase
     Firebase.begin(Firebase_Host, Firebase_Auth);
 
+//    Config OutPut
+    pinMode(SwitchLED, OUTPUT);
+
  
 } // setup
 
@@ -49,7 +56,20 @@ void loop() {
     Serial.println(countInt);
 
 //    Post Valut To Firebase
-    Firebase.setInt("TestNumber", countInt);
+    Firebase.setInt("FromNode/numberAnInt", countInt);
+
+
+//    Read Value From Firebase
+   sinalFirebase = Firebase.getInt("FromMobile/sinal");
+   Serial.print("sinalFirbase ==> ");
+   Serial.println(sinalFirebase);
+
+   if (sinalFirebase == 1) {
+      digitalWrite(SwitchLED, HIGH);
+    } else {
+      digitalWrite(SwitchLED, LOW);
+      }
+    
 
     delay(1000);
 } // loop
